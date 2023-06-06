@@ -35,30 +35,30 @@
                             <div class="col-md-6 d-flex align-items-center">
                                 <div class="card-body p-4 p-lg-5 text-black">
 
-                                    <form>
+                                    <form method="POST" action="backend/signup_handler.php">
                                         <h3 class="mb-3 pb-3">Sign into Your Account</h3>
 
                                         <div class="form-outline mb-4">
                                             <input type="text" id="form2Example17"
-                                                class="form-control form-control-lg" />
+                                                class="form-control form-control-lg"  name="fullname"/>
                                             <label class="form-label" for="form2Example17">Name</label>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <input type="email" id="form2Example17"
-                                                class="form-control form-control-lg" />
+                                                class="form-control form-control-lg" name="email" />
                                             <label class="form-label" for="form2Example17">Email address</label>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <input type="password" id="form2Example27"
-                                                class="form-control form-control-lg" />
+                                                class="form-control form-control-lg" name="password" />
                                             <label class="form-label" for="form2Example27">Password</label>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <input type="password" id="form2Example27"
-                                                class="form-control form-control-lg" />
+                                                class="form-control form-control-lg" name="confirm_password" />
                                             <label class="form-label" for="form2Example27">Confirm Password</label>
                                         </div>
 
@@ -67,7 +67,7 @@
                                         </div>
 
                                         <p class="mb-5 pb-lg-2">Already have an account? <a
-                                                href="Login.php">Register here</a></p>
+                                                href="index.php">Register here</a></p>
                                     </form>
 
                                 </div>
