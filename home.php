@@ -80,9 +80,13 @@
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <a href="Signup.php" class="btn btn-outline-success mx-1" type="submit">Signup</a>
-                    <a href="Login.php" class="btn btn-outline-success mx-1" type="submit">Login</a>
+                    <div class="btn btn-outline-primary text-light">
+                        <?php
+                        session_start();
+                        echo $_SESSION['name'];
+                        ?>
+                    </div>
+                    <a href="backend/logout_handler.php" class="btn btn-outline-danger ms-3">Logout</a>
                 </form>
             </div>
         </div>

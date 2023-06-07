@@ -67,7 +67,7 @@
                                         </div>
 
                                         <p class="mb-5 pb-lg-2">Already have an account? <a
-                                                href="index.php">Register here</a></p>
+                                                href="index.php">Login here</a></p>
                                     </form>
 
                                 </div>
