@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // creating user session
                     session_start();
                     $_SESSION['login'] = true;
+                    $_SESSION['id'] = $row['id'];
                     $_SESSION['name'] = $row['name'];
                     $_SESSION['email'] = $row['email'];
                     header("Location:../home.php?acc=success");

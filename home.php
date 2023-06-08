@@ -5,8 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <style>
     .form {
@@ -51,9 +50,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -65,8 +62,7 @@
                         <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Dropdown
                         </a>
                         <ul class="dropdown-menu">
@@ -97,23 +93,23 @@
         </center>
         <div class="container d-flex justify-content-center align-item-center">
             <div class="form  w-50 d-flex justify-content-center align-item-center flex-column m-4 shadow-lg">
-                <form action="php.php" method='POST'>
+                <form action="backend/todo_handler.php" method='POST'>
                     <div class="mb-3">
                         <h1>Create iTODO</h1>
                         <label for="exampleFormControlInput1" class="form-label">Enter Name:</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="name">
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Enter Phone NO:</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="phone">
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Title:</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="title">
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Description:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="desc"></textarea>
                     </div>
 
 
@@ -129,47 +125,55 @@
             <thead>
                 <tr class="ss">
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Todo</th>
+                    <th scope="col">phone</th>
+                    <th scope="col">title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
+                <?php
+
+                require_once "backend/db_connect.php";
+                $user_id = $_SESSION['id'];
+                $query = "SELECT * FROM `todo` WHERE `todo`.`user_id`='$user_id'";
+                //  echo var_dump($query);
+                $run = mysqli_query($connection, $query);
+                $num_rows = mysqli_num_rows($run);
+                if ($num_rows > 0) {
+
+
+
+                    while ($row = mysqli_fetch_assoc($run)) {
+
+
+
+                        echo '
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
+                    <th scope="row">' . $row['id'] . '</th>
+                    <td>' . $row['todo_name'] . '</td>
+                    <td>' . $row['todo_phone'] . '</td>
+                    <td>' . $row['todo_title'] . '</td>
+                    <td>' . $row['todo_desc'] . '</td>
+                    
                     <td>
                         <button type="button" class="btn btn-primary mx-1">Edit</button>
                         <button type="button" class="btn btn-warning mx-1">View All</button>
                         <button type="button" class="btn btn-danger mx-1">Delete</button>
                     </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>
-                        <button type="button" class="btn btn-primary mx-1">Edit</button>
-                        <button type="button" class="btn btn-warning mx-1">View All</button>
-                        <button type="button" class="btn btn-danger mx-1">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>
-                        <button type="button" class="btn btn-primary mx-1">Edit</button>
-                        <button type="button" class="btn btn-warning mx-1">View All</button>
-                        <button type="button" class="btn btn-danger mx-1">Delete</button>
-                    </td>
-                </tr>
+                </tr>';
+                    }
+                }else{
+                    echo "<h1>No TODO found</h1>";
+                }
+                
+                ?>
+
             </tbody>
         </table>
     </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
 </html>
